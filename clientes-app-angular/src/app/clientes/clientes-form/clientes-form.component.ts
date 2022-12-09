@@ -10,6 +10,8 @@ import { ClientesService } from '../../clientes.service';
 export class ClientesFormComponent implements OnInit {
 
   cliente: Cliente;
+  success: boolean = false;
+  errors!: String[];
 
   constructor(private service: ClientesService) { 
     this.cliente = new Cliente();
@@ -21,9 +23,16 @@ export class ClientesFormComponent implements OnInit {
   onSubmit(){
     this.service
     .salvar(this.cliente)
-    .subscribe(Response => {
-     console.log(Response);
-    })
+    .subscribe( response => {
+     this.success = true;
+     this.cliente = response;
+     //this.errors = null;
+    } //,errorResponse => {
+        //this.success = false;
+        //this.errors = errorResponse.error.errors;
+      
+       //}
+    )
   }
 
 }
